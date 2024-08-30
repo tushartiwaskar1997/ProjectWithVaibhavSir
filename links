@@ -1,0 +1,29 @@
+create database empdb;
+use empdb;
+-- id ,empname ,empdept ,createdon ,createdby ,isActive
+create table emploees({
+                        "empname": "tussfdgtryrwsdhsg",
+                        "empdept": "IT",
+                        "createdby": "tushar",
+                        "empstatus": "1"
+                      }
+ id int primary key auto_increment,
+
+ empname varchar(225),
+ empdept varchar(225),
+ createdon datetime  ,
+ createdby varchar(225),
+ isActive int
+);
+
+to insert new entity jason
+
+
+to update employee update is possible for only thos field
+{
+  "id":"5",
+  "empname": "aditya",
+  "empdept": "IT",
+  "empstatus": "1"
+}
+
