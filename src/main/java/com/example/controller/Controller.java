@@ -5,6 +5,7 @@ import com.example.constans.MessageConfig;
 import com.example.dto.EmployeeRequestDto;
 import com.example.dto.EmployeeResponsedto;
 import com.example.dto.HandelRequest;
+import com.example.email.EmailService;
 import com.example.model.Employee;
 import com.example.service.EmployeeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.*;
 
@@ -36,6 +38,9 @@ public class Controller {
 
     @Autowired
     private ObjectMapper objectmapper;
+
+    @Autowired
+    private EmailService emailService ;
 
     @PostMapping("/saveemp")
     public ResponseEntity<Object> savethestudent(@Valid @RequestBody EmployeeRequestDto empRequeset) {
@@ -142,6 +147,17 @@ public class Controller {
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "").contentType(MediaType.IMAGE_PNG).body(emp.getPhoto());
         }
         return HandelRequest.createResponse(MessageConfig.NOT_FOUND, HttpStatus.NOT_FOUND, null);
+    }
+
+    @GetMapping("/sendmail")
+    public String sendtheemail(){
+        emailService.sendthesimpleemailmess();
+        return  MessageConfig.SUCCESS_MESSAGE;
+    }
+    @GetMapping("/sendmailv1")
+    public String sendthecomplexemail(@RequestParam("txt") String message) throws MessagingException {
+        emailService.sendthecomplexmain(message);
+        return  MessageConfig.SUCCESS_MESSAGE;
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
